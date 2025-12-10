@@ -1,0 +1,14 @@
+{
+  "name": "Tint and Shade Generator",
+  "id": "maketintsandshades-plugin",
+  "api": "1.0.0",
+  "editorType": ["figma"],
+  "main": "code.js",
+  "ui": "ui.html",
+  "relaunchButtons": [
+    {
+      "command": "generate",
+      "name": "Make tints and shades"
+    }
+  ]
+}

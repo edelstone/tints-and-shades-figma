@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    font: 14px "Work Sans", system-ui, sans-serif;
+    margin: 0;
+    padding: 16px 12px;
+  }
+
+  .section {
+    margin-bottom: 16px;
+  }
+
+  label {
+    user-select: none;
+  }
+
+  input {
+    margin: 0;
+  }
+
+  .input-header {
+    margin-bottom: 6px;
+    display: inline-block;
+  }
+
+  input[type="text"] {
+    font-family: inherit;
+    font-size: inherit;
+    border-radius: 6px;
+    padding: 6px 4px;
+    border: 1px solid #dbdbdb;
+    background-color: #f0f0f0;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  input[type="text"]:focus,
+  input[type="text"]:focus-visible,
+  select:focus,
+  select:focus-visible {
+    outline-color: #ca228e;
+  }
+
+  .steps {
+    display: inline-flex;
+    flex-direction: column;
+  }
+
+  .radio-group {
+    display: inline-flex;
+    gap: 16px;
+  }
+
+  .radio-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .radio-pill input {
+    margin: 0;
+    transform: translateY(0);
+  }
+
+  .checkboxes {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .checkbox {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  button {
+    font-family: inherit;
+    font-size: inherit;
+    border: none;
+    background: #000;
+    width: 100%;
+    padding: 12px 8px;
+    margin-top: 4px;
+    cursor: pointer;
+    border-radius: 6px;
+    color: #fff;
+    transition: background 150ms ease-in-out;
+    user-select: none;
+  }
+
+  button:hover,
+  button:focus,
+  button:focus-visible {
+    background: #ca228e;
+  }
+</style>
+
+<body>
+
+  <main>
+    <div class="section">
+      <label class="hex">
+        <div class="input-header">Hex colors (separated by spaces)</div>
+        <input id="hex" type="text" value="">
+      </label>
+    </div>
+
+    <div class="section">
+      <label class="steps">
+        <div class="input-header">Steps</div>
+        <div class="radio-group" id="stepGroup">
+          <label class="radio-pill">
+            <input type="radio" name="step" value="5">
+            <span>5</span>
+          </label>
+          <label class="radio-pill">
+            <input type="radio" name="step" value="10" checked>
+            <span>10</span>
+          </label>
+          <label class="radio-pill">
+            <input type="radio" name="step" value="20">
+            <span>20</span>
+          </label>
+        </div>
+      </label>
+    </div>
+
+    <div class="section checkboxes">
+      <label class="checkbox styles">
+        <input id="createStyles" type="checkbox">
+        <span>Add local styles</span>
+      </label>
+
+      <label class="checkbox darkmode">
+        <input id="darkBackground" type="checkbox">
+        <span>Dark BG</span>
+      </label>
+    </div>
+
+    <button id="generate">
+      Make tints and shades &nbsp;🎉
+    </button>
+  </main>
+
+  <script>
+    const hexInput = document.getElementById("hex");
+    const stylesInput = document.getElementById("createStyles");
+    const darkBgInput = document.getElementById("darkBackground");
+    const generateButton = document.getElementById("generate");
+
+    generateButton.onclick = () => {
+      const selectedStep = document.querySelector('input[name="step"]:checked');
+      const stepCount = selectedStep ? parseInt(selectedStep.value, 10) : 10;
+
+      parent.postMessage(
+        {
+          pluginMessage: {
+            type: "generate",
+            hex: hexInput.value,
+            stepCount,
+            createStyles: stylesInput.checked,
+            darkBackground: darkBgInput.checked
+          }
+        },
+        "*"
+      );
+    };
+  </script>
+
+
+</body>
+
+</html>
