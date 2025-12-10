@@ -1,5 +1,5 @@
 {
-  "name": "Tint and Shade Generator",
+  "name": "Tint & Shade Generator",
   "id": "maketintsandshades-plugin",
   "api": "1.0.0",
   "editorType": ["figma"],
@@ -8,7 +8,7 @@
   "relaunchButtons": [
     {
       "command": "generate",
-      "name": "Make tints and shades"
+      "name": "Make tints and shades 🎉"
     }
   ]
 }

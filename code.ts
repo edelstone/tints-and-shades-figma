@@ -5,7 +5,7 @@
 figma.showUI(__html__, {
   width: 320,
   height: 240,
-  title: "Tint and Shade Generator"
+  title: "Tint & Shade Generator"
 });
 
 // Receive messages from UI
@@ -79,7 +79,7 @@ figma.ui.onmessage = async (msg: {
     frame.layoutMode = "HORIZONTAL";
     frame.primaryAxisSizingMode = "AUTO";
     frame.counterAxisSizingMode = "AUTO";
-    frame.itemSpacing = 16;
+    frame.itemSpacing = 8;
     frame.paddingLeft = frame.paddingRight = 16;
     frame.paddingTop = frame.paddingBottom = 16;
 

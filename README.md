@@ -1,40 +1,83 @@
-Below are the steps to get your plugin running. You can also find instructions at:
+# <img src="assets/icon.png" width="28px" /> &nbsp;Tint & Shade Generator - Figma Plugin
 
-  https://www.figma.com/plugin-docs/plugin-quickstart-guide/
+![Screenshot of the Figma plugin in action](assets/screenshot.png)
 
-This plugin template uses Typescript and NPM, two standard tools in creating JavaScript applications.
+Generate a complete set of tints, shades, and a base color directly inside Figma. This plugin is the companion to the web version of the [Tint & Shade Generator](https://maketintsandshades.com), bringing the same, meticulous [color-generation logic](https://maketintsandshades.com/about/#calculation-method) into your design workflow.
 
-First, download Node.js which comes with NPM. This will allow you to install TypeScript and other
-libraries. You can find the download link here:
+## Features
 
-  https://nodejs.org/en/download/
+- Enter one or multiple hex colors - accepts `#hex`, `hex`, and 3-digit shorthand.
+- Generates a palette canvas with base color, tints, and shades.
+- Choose number of increments/steps (5, 10, or 20).
+- Optional: simultaneously create local Figma color styles with token-friendly naming.
+- Optional: choose a dark background.
+- Organized layer structure for easy handoff and editing.
 
-Next, install TypeScript using the command:
+## Install the plugin
 
-  npm install -g typescript
+1. Open _Figma → Community_
+2. Search _Tint & Shade Generator_
+3. Click _Install_
 
-Finally, in the directory of your plugin, get the latest type definitions for the plugin API by running:
+## Output structure
 
-  npm install --save-dev @figma/plugin-typings
+- Hex is normalized internally to lowercase.
+- Step values use a 100-based scale (100, 200, 300…).
 
-If you are familiar with JavaScript, TypeScript will look very familiar. In fact, valid JavaScript code
-is already valid Typescript code.
+### Layers panel
 
-TypeScript adds type annotations to variables. This allows code editors such as Visual Studio Code
-to provide information about the Figma API while you are writing code, as well as help catch bugs
-you previously didn't notice.
+```text
+Tints & Shades
+  └─ e96443
+        ├─ Base
+        │    ├─ Swatch
+        │    └─ e96443
+        ├─ Tints
+        │    ├─ 100
+        │    │    ├─ Swatch
+        │    │    └─ eb7456
+        │    ├─ 200
+        │    └─ …
+        └─ Shades
+             ├─ 100
+             │    ├─ Swatch
+             │    └─ d25a3c
+             ├─ 200
+             └─ …
+```
 
-For more information, visit https://www.typescriptlang.org/
+### Styles panel
 
-Using TypeScript requires a compiler to convert TypeScript (code.ts) into JavaScript (code.js)
-for the browser to run.
+```text
+Tints & Shades
+  └─ e96443
+        ├─ Base
+        ├─ Tints
+        │    ├─ 100
+        │    ├─ 200
+        │    └─ …
+        └─ Shades
+             ├─ 100
+             ├─ 200
+             └─ …
+```
 
-We recommend writing TypeScript code using Visual Studio code:
+## Local development
 
-1. Download Visual Studio Code if you haven't already: https://code.visualstudio.com/.
-2. Open this directory in Visual Studio Code.
-3. Compile TypeScript to JavaScript: Run the "Terminal > Run Build Task..." menu item,
-    then select "npm: watch". You will have to do this again every time
-    you reopen Visual Studio Code.
+1. Download or clone the repo.
+2. Run `npm install`.
+3. Run `npm run watch` (for development)  
+   or `npm run build` (for production).
+4. In Figma: _Plugins → Development → Import plugin from manifest…_.
+5. Select `manifest.json`.
+6. Run via _Plugins → Development → Tint & Shade Generator_.
 
-That's it! Visual Studio Code will regenerate the JavaScript file every time you save.
+## Feedback and contributing
+
+If you notice a bug or want to request a feature, please [file an issue on GitHub](https://github.com/edelstone/tints-and-shades-figma/issues/new) or [email me](mailto:contact@maketintsandshades.com) the details.
+
+If you're a developer and want to help, please comment on [open issues](https://github.com/edelstone/tints-and-shades-figma/issues) or create a new one and communicate your intentions. Once we agree on a path forward you can just make a PR and take it to the finish line.
+
+## License
+
+MIT, use freely in commercial and personal projects.
