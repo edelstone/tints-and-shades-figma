@@ -218,7 +218,7 @@ figma.ui.onmessage = async (msg: {
       rect.fills = [{ type: "SOLID", color: hexToRgb01(swatch.hex) }];
 
       const label = figma.createText();
-      label.name = swatch.hex.toLowerCase();
+      label.name = swatch.hex.toLowerCase().replace("#", "");
       label.fontName = { family: "Roboto", style: "Regular" };
       label.characters = swatch.hex.toLowerCase();
       label.fontSize = 10;
