@@ -1,4 +1,4 @@
-# <img src="assets/icon.png" width="28px" /> &nbsp;Tint & Shade Generator - Figma plugin
+# [<img src="assets/icon.png" width="28px" />](https://www.figma.com/community/plugin/1580658889126377365) &nbsp;[Tint & Shade Generator - Figma plugin](https://www.figma.com/community/plugin/1580658889126377365)
 
 ![Screenshot of the Figma plugin in action](assets/screenshot.png)
 
@@ -13,11 +13,9 @@ Generate a complete set of tints and shades from a base color directly inside Fi
 - Optional: choose a dark background.
 - Organized layer structure for easy handoff and editing.
 
-## Install the plugin
+## Installation
 
-1. Open _Figma → Community_
-2. Search _Tint & Shade Generator_
-3. Click _Install_
+Grab the plugin directly [from the Figma Community](https://www.figma.com/community/plugin/1580658889126377365).
 
 ## Output structure
 
@@ -80,7 +78,7 @@ If you're a developer and want to help, please comment on [open issues](https://
 
 ## Support this project
 
-The Tint & Shade Generator will always be free but your support is greatly appreciated.
+The Tint & Shade Generator plugin will always be free but your support is greatly appreciated.
 
 -   [Buy Me a Coffee](https://www.buymeacoffee.com/edelstone)
 -   [Cash App](https://cash.app/$edelstone)
