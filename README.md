@@ -2,7 +2,13 @@
 
 ![Screenshot of the Figma plugin in action](assets/plugin-hero.png)
 
-Generate a complete set of tints and shades from a base color directly inside Figma. This plugin is the companion to the web version of the [Tint & Shade Generator](https://maketintsandshades.com), bringing the same, meticulous [color-generation logic](https://maketintsandshades.com/about/#calculation-method) into your design workflow.
+## Overview
+
+Generate a complete set of tints and shades from a base color directly inside Figma. This plugin is the companion to the web version of the [Tint & Shade Generator](https://github.com/edelstone/tints-and-shades), bringing the same, meticulous [color-generation logic](https://github.com/edelstone/tints-and-shades?tab=readme-ov-file#calculation-method) into your design workflow.
+
+## Installation
+
+Grab the plugin directly [from the Figma Community](https://www.figma.com/community/plugin/1580658889126377365).
 
 ## Features
 
@@ -12,10 +18,6 @@ Generate a complete set of tints and shades from a base color directly inside Fi
 - Optional: simultaneously create local Figma color styles with token-friendly naming.
 - Optional: choose a dark background.
 - Organized layer structure for easy handoff and editing.
-
-## Installation
-
-Grab the plugin directly [from the Figma Community](https://www.figma.com/community/plugin/1580658889126377365).
 
 ## Output structure
 
