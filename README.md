@@ -4,7 +4,7 @@
 
 ## Overview
 
-Generate a complete set of tints and shades from a base color directly inside Figma. This plugin is the companion to the web version of the [Tint & Shade Generator](https://github.com/edelstone/tints-and-shades), bringing the same, meticulous [color-generation logic](https://github.com/edelstone/tints-and-shades?tab=readme-ov-file#calculation-method) into your design workflow.
+Generate a complete set of tints and shades from a base color directly inside Figma. This plugin is the companion to the web version of the [Tint & Shade Generator](https://github.com/edelstone/tints-and-shades), bringing the same, meticulous [color-generation logic](https://github.com/edelstone/tints-and-shades?tab=readme-ov-file#calculation-method) to your design workflow.
 
 ## Installation
 
@@ -13,7 +13,7 @@ Grab the plugin directly [from the Figma Community](https://www.figma.com/commun
 ## Features
 
 - Enter one or multiple hex colors - accepts `#hex`, `hex`, and 3-digit shorthand.
-- Generates a palette canvas with base color, tints, and shades.
+- Generates palette frames with base color, tints, and shades.
 - Choose number of increments/steps (5, 10, or 20).
 - Optional: simultaneously create local Figma color styles with token-friendly naming.
 - Optional: choose a dark background.
