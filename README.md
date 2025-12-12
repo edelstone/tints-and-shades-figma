@@ -1,6 +1,6 @@
 # [<img src="assets/icon.png" width="28px" />](https://www.figma.com/community/plugin/1580658889126377365) &nbsp;[Tint & Shade Generator - Figma plugin](https://www.figma.com/community/plugin/1580658889126377365)
 
-![Screenshot of the Figma plugin in action](assets/screenshot.png)
+![Screenshot of the Figma plugin in action](assets/plugin-hero.png)
 
 Generate a complete set of tints and shades from a base color directly inside Figma. This plugin is the companion to the web version of the [Tint & Shade Generator](https://maketintsandshades.com), bringing the same, meticulous [color-generation logic](https://maketintsandshades.com/about/#calculation-method) into your design workflow.
 
