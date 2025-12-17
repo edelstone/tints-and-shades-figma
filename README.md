@@ -1,4 +1,4 @@
-# [<img src="assets/icon.png" width="28px" />](https://www.figma.com/community/plugin/1580658889126377365) &nbsp;[Tint & Shade Generator - Figma plugin](https://www.figma.com/community/plugin/1580658889126377365)
+# [<img src="assets/icon.png" width="28px" alt="" />](https://www.figma.com/community/plugin/1580658889126377365) &nbsp;[Tint & Shade Generator - Figma plugin](https://www.figma.com/community/plugin/1580658889126377365)
 
 ![Screenshot of the Figma plugin in action](assets/plugin-hero.png)
 
@@ -64,13 +64,15 @@ Tints & Shades
 
 ## Local development
 
+*Prerequisites: Node.js 16+ and Figma account*
+
 1. Download or clone the repo.
-2. Run `npm install`.
-3. Run `npm run watch` (for development)  
-   or `npm run build` (for production).
-4. In Figma: _Plugins → Development → Import plugin from manifest…_.
-5. Select `manifest.json`.
-6. Run via _Plugins → Development → Tint & Shade Generator_.
+1. Navigate to the project in your terminal.
+1. Run `npm install`.
+1. Run `npm run watch` (rebuilds plugin files on change) or `npm run build` (one-time production build).
+1. In Figma: *Plugins → Development → Import plugin from manifest…*.
+1. Select the repo's `manifest.json`.
+1. Run via *Plugins → Development → Tint & Shade Generator*.
 
 ## Feedback and contributing
 
@@ -82,10 +84,10 @@ If you're a developer and want to help, please comment on [open issues](https://
 
 The Tint & Shade Generator plugin will always be free but your support is greatly appreciated.
 
--   [Buy Me a Coffee](https://www.buymeacoffee.com/edelstone)
--   [Cash App](https://cash.app/$edelstone)
--   [Paypal](https://www.paypal.me/edelstone)
--   [Venmo](https://venmo.com/michaeledelstone)
+- [Buy Me a Coffee](https://www.buymeacoffee.com/edelstone)
+- [Cash App](https://cash.app/$edelstone)
+- [Paypal](https://www.paypal.me/edelstone)
+- [Venmo](https://venmo.com/michaeledelstone)
 
 ## License
 
