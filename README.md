@@ -1,4 +1,4 @@
-# [<img src="assets/icon.png" width="28px" alt="" />](https://www.figma.com/community/plugin/1580658889126377365) &nbsp;[Tint & Shade Generator - Figma plugin](https://www.figma.com/community/plugin/1580658889126377365)
+# [Tint & Shade Generator - Figma plugin](https://www.figma.com/community/plugin/1580658889126377365)
 
 ![Screenshot of the Figma plugin in action](assets/plugin-hero.png)
 
@@ -90,4 +90,4 @@ If you’d like to contribute, comment on an [open issue](https://github.com/ede
 
 ## License
 
-MIT, use freely in commercial and personal projects.
+MIT — free for commercial and personal use.
