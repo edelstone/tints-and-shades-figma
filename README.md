@@ -85,7 +85,7 @@ If you’d like to contribute, comment on an [open issue](https://github.com/ede
 
 - [Buy Me a Coffee](https://www.buymeacoffee.com/edelstone)
 - [Cash App](https://cash.app/$edelstone)
-- [Paypal](https://www.paypal.me/edelstone)
+- [PayPal](https://www.paypal.me/edelstone)
 - [Venmo](https://venmo.com/michaeledelstone)
 
 ## License
