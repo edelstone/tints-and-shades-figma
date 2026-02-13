@@ -65,12 +65,12 @@ Tints & Shades
 
 ## Local development
 
-*Prerequisites: Node.js 16+ and a Figma account.*
+*Prerequisites: Node.js 18+ and a Figma account.*
 
 1. Download or clone the repo.
 1. Navigate to the project in your terminal.
 1. Run `npm install`.
-1. Run `npm run watch` (rebuilds plugin files on change) or `npm run build` (one-time production build).
+1. Run `npm run watch` (bundles and rebuilds with `esbuild` on change) or `npm run build` (one-time `esbuild` bundle).
 1. In Figma: *Plugins → Development → Import plugin from manifest…*.
 1. Select the repo's `manifest.json`.
 1. Run via *Plugins → Development → Tint & Shade Generator*.

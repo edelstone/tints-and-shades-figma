@@ -1,4 +1,5 @@
 /// <reference types="@figma/plugin-typings" />
+import { generatePalette } from "./palette.mjs";
 
 // --- UI setup --------------------------------------------------------------
 
@@ -304,19 +305,11 @@ figma.ui.onmessage = async (msg: {
 // Tints: new = current + ((255 - current) * tintFactor)
 // Shades: new = current * shadeFactor
 
-type Role = "tint" | "shade" | "base";
 type PaletteType =
   | "complementary"
   | "split-complementary"
   | "analogous"
   | "triadic";
-
-interface Swatch {
-  role: Role;
-  step: number;   // 0–100
-  hex: string;
-  label: string;  // e.g. "shade-10", "base", "tint-40"
-}
 
 function normalizeHex(hex: string): string {
   const cleaned = hex.trim().replace(/^#/, "");
@@ -350,16 +343,6 @@ function hexToRgb255(hex: string): { r: number; g: number; b: number } {
   const g = parseInt(cleaned.slice(2, 4), 16);
   const b = parseInt(cleaned.slice(4, 6), 16);
   return { r, g, b };
-}
-
-function componentToHex(c: number): string {
-  const clamped = Math.max(0, Math.min(255, Math.round(c)));
-  const s = clamped.toString(16);
-  return s.length === 1 ? "0" + s : s;
-}
-
-function rgb255ToHex(r: number, g: number, b: number): string {
-  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
 function rgbToHsl(rgb: { r: number; g: number; b: number }): {
@@ -466,7 +449,7 @@ function calculateRelatedHexes(hex: string, paletteType: PaletteType): string[] 
       saturation: hsl.saturation,
       lightness: hsl.lightness
     });
-    return rgb255ToHex(rgb.r, rgb.g, rgb.b);
+    return normalizeHex(rgbToHex6(rgb.r, rgb.g, rgb.b));
   });
 }
 
@@ -483,51 +466,11 @@ function expandRelatedHexes(
   return expanded;
 }
 
-function generatePalette(baseHex: string, stepPercent: number): Swatch[] {
-  const { r, g, b } = hexToRgb255(baseHex);
-  const maxSteps = Math.floor(95 / stepPercent);
-
-  const swatches: Swatch[] = [];
-
-  // shades: multiply by shadeFactor = 1 - step
-  for (let i = 1; i <= maxSteps; i++) {
-    const shadeFactor = 1 - (stepPercent * i) / 100;
-    const nr = r * shadeFactor;
-    const ng = g * shadeFactor;
-    const nb = b * shadeFactor;
-    const hex = rgb255ToHex(nr, ng, nb);
-    const step = stepPercent * i;
-    swatches.push({
-      role: "shade",
-      step,
-      hex,
-      label: `shade-${step}`
-    });
-  }
-
-  // base
-  swatches.push({
-    role: "base",
-    step: 0,
-    hex: baseHex,
-    label: "base"
-  });
-
-  // tints: current + (255 - current) * tintFactor
-  for (let i = 1; i <= maxSteps; i++) {
-    const tintFactor = (stepPercent * i) / 100;
-    const nr = r + (255 - r) * tintFactor;
-    const ng = g + (255 - g) * tintFactor;
-    const nb = b + (255 - b) * tintFactor;
-    const hex = rgb255ToHex(nr, ng, nb);
-    const step = stepPercent * i;
-    swatches.push({
-      role: "tint",
-      step,
-      hex,
-      label: `tint-${step}`
-    });
-  }
-
-  return swatches;
+function rgbToHex6(r: number, g: number, b: number): string {
+  const toHex = (value: number): string => {
+    const clamped = Math.max(0, Math.min(255, Math.round(value)));
+    const hex = clamped.toString(16);
+    return hex.length === 1 ? `0${hex}` : hex;
+  };
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
