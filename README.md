@@ -83,6 +83,8 @@ If you’d like to contribute, comment on an [open issue](https://github.com/ede
 
 ## Support this project
 
+Give the plugin a ❤️ on [Figma Community](https://www.figma.com/community/plugin/1580658889126377365).
+
 - [Buy Me a Coffee](https://www.buymeacoffee.com/edelstone)
 - [Cash App](https://cash.app/$edelstone)
 - [PayPal](https://www.paypal.me/edelstone)
