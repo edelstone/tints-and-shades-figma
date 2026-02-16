@@ -1,5 +1,11 @@
 /// <reference types="@figma/plugin-typings" />
 import { generatePalette } from "./palette.mjs";
+import {
+  expandRelatedHexes,
+  hexToRgb01,
+  normalizeHexInput,
+  type PaletteType
+} from "./color-api";
 
 // --- UI setup --------------------------------------------------------------
 
@@ -74,8 +80,8 @@ figma.ui.onmessage = async (msg: {
   const hexList: string[] = [];
   for (const token of rawTokens) {
     if (!token) continue;
-    const normalized = normalizeHex(token);
-    if (!isValidHex(normalized)) {
+    const normalized = normalizeHexInput(token);
+    if (!normalized) {
       figma.notify(`Invalid hex color: "${token}". Use 3- or 6-digit hex.`);
       return;
     }
@@ -96,14 +102,12 @@ figma.ui.onmessage = async (msg: {
 
   // Parent frame to stack multiple palettes vertically
   const parent = figma.createFrame();
-  parent.name = "Tints & Shades";
+  parent.name = getCanvasTitle(includePalette, paletteType);
   parent.layoutMode = "VERTICAL";
   parent.primaryAxisSizingMode = "AUTO";
   parent.counterAxisSizingMode = "AUTO";
   parent.paddingLeft = parent.paddingRight = 0;
   parent.paddingTop = parent.paddingBottom = 0;
-
-  const createdFrames: SceneNode[] = [];
 
   for (const hex of expandedHexList) {
     const palette = generatePalette(hex, stepPercent);
@@ -292,7 +296,6 @@ figma.ui.onmessage = async (msg: {
     }
 
     parent.appendChild(frame);
-    createdFrames.push(frame);
   }
 
   figma.currentPage.appendChild(parent);
@@ -300,124 +303,13 @@ figma.ui.onmessage = async (msg: {
 };
 
 
-// --- Color math (mirrors maketintsandshades.com) --------------------------
-// Calculation method matches the site’s docs:
-// Tints: new = current + ((255 - current) * tintFactor)
-// Shades: new = current * shadeFactor
-
-type PaletteType =
-  | "complementary"
-  | "split-complementary"
-  | "analogous"
-  | "triadic";
-
-function normalizeHex(hex: string): string {
-  const cleaned = hex.trim().replace(/^#/, "");
-  if (cleaned.length === 3) {
-    return (
-      "#" +
-      cleaned
-        .split("")
-        .map((ch) => ch + ch)
-        .join("")
-        .toLowerCase()
-    );
-  }
-  return "#" + cleaned.toLowerCase();
-}
-
-function isValidHex(hex: string): boolean {
-  return /^#[0-9a-f]{6}$/i.test(hex);
-}
+// --- Formatting + UI option helpers ---------------------------------------
 
 function normalizePaletteType(value?: string): PaletteType {
   if (value === "split-complementary") return "split-complementary";
   if (value === "analogous") return "analogous";
   if (value === "triadic") return "triadic";
   return "complementary";
-}
-
-function hexToRgb255(hex: string): { r: number; g: number; b: number } {
-  const cleaned = hex.replace("#", "");
-  const r = parseInt(cleaned.slice(0, 2), 16);
-  const g = parseInt(cleaned.slice(2, 4), 16);
-  const b = parseInt(cleaned.slice(4, 6), 16);
-  return { r, g, b };
-}
-
-function rgbToHsl(rgb: { r: number; g: number; b: number }): {
-  hue: number;
-  saturation: number;
-  lightness: number;
-} {
-  const r = rgb.r / 255;
-  const g = rgb.g / 255;
-  const b = rgb.b / 255;
-  const max = Math.max(r, g, b);
-  const min = Math.min(r, g, b);
-  let hue = 0;
-  let saturation = 0;
-  const lightness = (max + min) / 2;
-
-  if (max !== min) {
-    const delta = max - min;
-    saturation = lightness > 0.5 ? delta / (2 - max - min) : delta / (max + min);
-
-    switch (max) {
-      case r:
-        hue = ((g - b) / delta + (g < b ? 6 : 0)) * 60;
-        break;
-      case g:
-        hue = ((b - r) / delta + 2) * 60;
-        break;
-      default:
-        hue = ((r - g) / delta + 4) * 60;
-    }
-  }
-
-  return {
-    hue: (hue + 360) % 360,
-    saturation,
-    lightness
-  };
-}
-
-function hueToRgb(p: number, q: number, t: number): number {
-  if (t < 0) t += 1;
-  if (t > 1) t -= 1;
-  if (t < 1 / 6) return p + (q - p) * 6 * t;
-  if (t < 1 / 2) return q;
-  if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
-  return p;
-}
-
-function hslToRgb(hsl: {
-  hue: number;
-  saturation: number;
-  lightness: number;
-}): { r: number; g: number; b: number } {
-  const h = ((hsl.hue % 360) + 360) % 360 / 360;
-  const s = Math.min(Math.max(hsl.saturation, 0), 1);
-  const l = Math.min(Math.max(hsl.lightness, 0), 1);
-
-  if (s === 0) {
-    const value = Math.round(l * 255);
-    return { r: value, g: value, b: value };
-  }
-
-  const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-  const p = 2 * l - q;
-
-  return {
-    r: Math.round(hueToRgb(p, q, h + 1 / 3) * 255),
-    g: Math.round(hueToRgb(p, q, h) * 255),
-    b: Math.round(hueToRgb(p, q, h - 1 / 3) * 255)
-  };
-}
-
-function hexToRgb01(hex: string): RGB {
-  const { r, g, b } = hexToRgb255(hex);
-  return { r: r / 255, g: g / 255, b: b / 255 };
 }
 
 function formatStepLabel(step: number): string {
@@ -430,47 +322,20 @@ function formatHexLabel(hex: string, includeHashtag: boolean): string {
   return includeHashtag ? normalized : normalized.replace("#", "");
 }
 
-function calculateRelatedHexes(hex: string, paletteType: PaletteType): string[] {
-  const { r, g, b } = hexToRgb255(hex);
-  const hsl = rgbToHsl({ r, g, b });
-  const offsets =
-    paletteType === "split-complementary"
-      ? [180 - 30, 180 + 30]
-      : paletteType === "analogous"
-        ? [-30, 30]
-        : paletteType === "triadic"
-          ? [120, 240]
-          : [180];
-
-  return offsets.map((offset) => {
-    const hue = (hsl.hue + offset + 360) % 360;
-    const rgb = hslToRgb({
-      hue,
-      saturation: hsl.saturation,
-      lightness: hsl.lightness
-    });
-    return normalizeHex(rgbToHex6(rgb.r, rgb.g, rgb.b));
-  });
-}
-
-function expandRelatedHexes(
-  hexes: string[],
-  paletteType: PaletteType
-): string[] {
-  const expanded: string[] = [];
-  for (const hex of hexes) {
-    expanded.push(hex);
-    const related = calculateRelatedHexes(hex, paletteType);
-    expanded.push(...related);
+function formatPaletteTypeLabel(paletteType: PaletteType): string {
+  switch (paletteType) {
+    case "split-complementary":
+      return "Split Complementary";
+    case "analogous":
+      return "Analogous";
+    case "triadic":
+      return "Triadic";
+    default:
+      return "Complementary";
   }
-  return expanded;
 }
 
-function rgbToHex6(r: number, g: number, b: number): string {
-  const toHex = (value: number): string => {
-    const clamped = Math.max(0, Math.min(255, Math.round(value)));
-    const hex = clamped.toString(16);
-    return hex.length === 1 ? `0${hex}` : hex;
-  };
-  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+function getCanvasTitle(includePalette: boolean, paletteType: PaletteType): string {
+  if (!includePalette) return "Tints & Shades";
+  return `Tints & Shades + ${formatPaletteTypeLabel(paletteType)}`;
 }
