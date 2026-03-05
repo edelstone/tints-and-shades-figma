@@ -1,6 +1,7 @@
 {
   "name": "tint-and-shade-generator",
   "version": "1.0.0",
+  "private": true,
   "description": "Instantly generate clean, structured tint and shade palettes from one or more hex colors directly inside Figma.",
   "main": "code.js",
   "homepage": "https://www.figma.com/community/plugin/1580658889126377365",
