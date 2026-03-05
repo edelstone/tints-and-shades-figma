@@ -45,6 +45,20 @@
     "eslint": "^8.54.0",
     "typescript": "^5.3.2"
   },
+  "overrides": {
+    "@eslint/eslintrc": {
+      "minimatch": "^3.1.4"
+    },
+    "@humanwhocodes/config-array": {
+      "minimatch": "^3.1.4"
+    },
+    "glob": {
+      "minimatch": "^3.1.4"
+    },
+    "eslint": {
+      "minimatch": "^3.1.4"
+    }
+  },
   "eslintConfig": {
     "extends": [
       "eslint:recommended",
