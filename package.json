@@ -57,6 +57,9 @@
     },
     "eslint": {
       "minimatch": "^3.1.4"
+    },
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "9.0.7"
     }
   },
   "eslintConfig": {
