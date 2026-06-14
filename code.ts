@@ -25,6 +25,7 @@ type UiSettings = {
 };
 
 const SETTINGS_KEY = "tints-and-shades-settings";
+const LABEL_FONT: FontName = { family: "Inter", style: "Regular" };
 
 const postSettingsToUi = async () => {
   const settings = await figma.clientStorage.getAsync(SETTINGS_KEY);
@@ -98,7 +99,7 @@ figma.ui.onmessage = async (msg: {
     : hexList;
 
   // Load font once for all labels
-  await figma.loadFontAsync({ family: "Roboto", style: "Regular" });
+  await figma.loadFontAsync(LABEL_FONT);
 
   // Parent frame to stack multiple palettes vertically
   const parent = figma.createFrame();
@@ -157,7 +158,7 @@ figma.ui.onmessage = async (msg: {
 
     const baseLabel = figma.createText();
     baseLabel.name = formatHexLabel(hex, includeHashtag);
-    baseLabel.fontName = { family: "Roboto", style: "Regular" };
+    baseLabel.fontName = LABEL_FONT;
     baseLabel.characters = formatHexLabel(hex, includeHashtag);
     baseLabel.fontSize = 10;
     baseLabel.textAlignHorizontal = "CENTER";
@@ -221,7 +222,7 @@ figma.ui.onmessage = async (msg: {
 
       const label = figma.createText();
       label.name = formatHexLabel(swatch.hex, includeHashtag);
-      label.fontName = { family: "Roboto", style: "Regular" };
+      label.fontName = LABEL_FONT;
       label.characters = formatHexLabel(swatch.hex, includeHashtag);
       label.fontSize = 10;
       label.textAlignHorizontal = "CENTER";
@@ -265,7 +266,7 @@ figma.ui.onmessage = async (msg: {
 
       const label = figma.createText();
       label.name = formatHexLabel(swatch.hex, includeHashtag);
-      label.fontName = { family: "Roboto", style: "Regular" };
+      label.fontName = LABEL_FONT;
       label.characters = formatHexLabel(swatch.hex, includeHashtag);
       label.fontSize = 10;
       label.textAlignHorizontal = "CENTER";
