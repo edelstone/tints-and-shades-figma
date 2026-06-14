@@ -25,7 +25,7 @@ type UiSettings = {
 };
 
 const SETTINGS_KEY = "tints-and-shades-settings";
-const LABEL_FONT: FontName = { family: "Inter", style: "Regular" };
+const LABEL_FONT: FontName = { family: "Inter", style: "Medium" };
 
 const postSettingsToUi = async () => {
   const settings = await figma.clientStorage.getAsync(SETTINGS_KEY);
